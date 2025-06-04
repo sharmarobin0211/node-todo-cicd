@@ -11,6 +11,7 @@ pipeline{
         stage("Code Build"){
             steps{
                 echo "Code Build Stage"
+                sh " docker build -t todo-app:latest . "
                 
             }
         }
