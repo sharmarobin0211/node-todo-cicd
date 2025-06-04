@@ -8,10 +8,10 @@ pipeline{
                 git url: "https://github.com/sharmarobin0211/node-todo-cicd.git", branch: "master"
             }
         }
-        stage("Code Build & Test"){
+        stage("Code Build"){
             steps{
                 echo "Code Build Stage"
-                sh "docker build -t node-app ."
+                
             }
         }
       
