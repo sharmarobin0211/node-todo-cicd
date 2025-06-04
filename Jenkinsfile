@@ -15,6 +15,22 @@ pipeline{
                 
             }
         }
-      
+        stage("Push To DockerHub"){
+            steps{
+                withCredentials([usernamePassword(
+                    credentialsId:"dockerHubCreds",
+                    usernameVariable:"dockerHubUser", 
+                    passwordVariable:"dockerHubPass")]){
+                sh 'echo $dockerHubPass | docker login -u $dockerHubUser --password-stdin'
+                sh "docker image tag todo-app:latest ${env.dockerHubUser}/todo-app:latest"
+                sh "docker push ${env.dockerHubUser}/todo-app:latest"
+                }
+            }
+        }
+        stage("deploy"){
+            steps{
+                sh "docker compose up "
+            }
+        }
     }
 }
